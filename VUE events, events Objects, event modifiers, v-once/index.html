@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Vue Events</h1>
+    </header>
+    <section id="events">
+      <h2>Events in Action</h2>
+      <!-- v-on: es una directriz con la que podemos escuchar eventos, en este caso el evento click, y realizar acciones, en este caso counter++-->
+      <button v-on:click="counter++">Add</button>
+      <!-- No se considera una buena práctica introducir código en html (la vista), lo mejor es ejecutar funciones realizadas en el archivo js -->
+      <button v-on:click="substract(1)">Remove</button>
+      <button v-on:click="add(5)">Add 5</button>
+      <button v-on:click="substract(5)">Remove 5</button>
+      <!-- Vue también acepta llamar a la función sin () -->
+      <!-- Con el modificador "right" hacemos que solo se escuchen clicks del botón derecho del ratón (tenemos .right, .middle y .left(que es el por defecto)) -->
+      <button v-on:click.right="reset">Reset</button>
+      <!-- Con v-once hacemos que las variables interpladas (en este caso counter) no se actualice nunca -->
+      <p v-once>Starting Counter: {{ counter }}</p>
+      <p>Result: {{ counter }}</p>
+      <!-- También existen modificadores de input, en el caso de keyup tenemos .enter, .ctrl ..., que hacen que solo se escuche a la tecla enter o ctrl ... -->
+      <!-- Podemos tener más de un v-on en un mismo elemento, en este caso queremos que el nombre mostrado solo se actualice al presionar enter -->
+      <input type="text" v-on:input="setName($event, 'Gil')" v-on:keyup.enter="confirmedInput">
+      <p>Your Name: {{ confirmedName }}</p>
+      <!-- Por defecto en html, la acción de un botón en un formulario actualiza la página entera -->
+      <!-- Con Vue querremos evitar este comportamiento ya que al actualizar la página perdemos nuestros datos -->
+      <!-- Con un . después de v-on:"event" podemos utilizar los modificadores de vue, prevent por ejemplo sirve para lo mismo que preventDefault() -->
+      <form v-on:submit.prevent="submitForm">
+        <input type="text">
+        <button>Sign Up</button>
+      </form>
+    </section>
+  </body>
+</html>
